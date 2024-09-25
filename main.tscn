@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://hufv5em6n73f"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_3qqtq"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_3qqtq")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 407.0
+offset_top = 164.0
+offset_right = 600.0
+offset_bottom = 237.0
+text = "开始游戏"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 408.0
+offset_top = 346.0
+offset_right = 608.0
+offset_bottom = 421.0
+text = "退出"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
