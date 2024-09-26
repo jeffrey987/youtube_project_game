@@ -23,10 +23,6 @@ func _physics_process(delta: float) -> void:
 	elif chase ==false and status >=0:
 		frogAnimated.play("Idle")
 		velocity.x=0
-	if status==-1 :
-		frogAnimated.play("Death")
-		await frogAnimated.animation_finished
-		self.queue_free()
 	move_and_slide()
 	pass
 
@@ -46,6 +42,7 @@ func _on_player_death_body_entered(body: Node2D) -> void:
 	if body.name =="Player":		
 		chase=false
 		status=-1 
+		death()
 	pass # Replace with function body.
 
 
@@ -53,5 +50,14 @@ func _on_player_collison_body_entered(body: Node2D) -> void:
 	if body.name =="Player":		
 		chase=false
 		status=-1 
-		body.health-=3
+		Game.PlayerHP-=3
+		death()
 	pass # Replace with function body.
+
+func death():
+	Game.Gold+=5		
+	frogAnimated.play("Death")
+	await frogAnimated.animation_finished
+	self.queue_free()
+	pass
+	

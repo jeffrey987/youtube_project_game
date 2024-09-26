@@ -8,5 +8,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	text ="HP: "+str(get_node("../../Player/Player").health)
+	if name=="hp":
+		text ="HP: "+str(Game.PlayerHP)
+	if name=="gold":
+		text ="Gold: "+str(Game.Gold)
 	pass

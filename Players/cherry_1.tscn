@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkdbn4u7686ye"]
+
+[ext_resource type="Script" path="res://cherry_1.gd" id="1_2kmbw"]
+[ext_resource type="Texture2D" uid="uid://cku114ao1d0sd" path="res://Sunny Land Collection Files/Assets/Packs/Sunnyland/sprites/cherry/cherry-1.png" id="2_t5sdx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fo0ep"]
+radius = 8.24621
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fyprj"]
+
+[node name="Cherry1" type="Area2D"]
+script = ExtResource("1_2kmbw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fo0ep")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fyprj")
+
+[node name="Cherry-1" type="Sprite2D" parent="."]
+position = Vector2(3, 1)
+texture = ExtResource("2_t5sdx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
