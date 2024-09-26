@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-
+var health=100
+var gold=100
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-#var gravity=ProjectSettings.get_setting("physics/2d/default_gravity")
 # 添加播放动画
 @onready var anim= get_node("AnimationPlayer")
 

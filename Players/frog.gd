@@ -1,26 +1,32 @@
 extends CharacterBody2D
+
 var SPEED=50
 var player
+@onready var frogAnimated=get_node("AnimatedSprite2D")
 var chase=false
+var status=0
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	if chase == true: 
-		get_node("AnimatedSprite2D").play("Jump")
+	if chase == true and status>=0: 
+		frogAnimated.play("Jump")
 		player=get_node("../../Player/Player")
 		var direction=(player.position-self.position).normalized()
 		#判断左右移动是否反转
 		if direction.x >0:		
-			get_node("AnimatedSprite2D").flip_h=true
+			frogAnimated.flip_h=true
 		else:	
-			get_node("AnimatedSprite2D").flip_h=false
+			frogAnimated.flip_h=false
 		velocity.x =direction.x*SPEED
 		
-	else:
-		get_node("AnimatedSprite2D").play("Idle")
+	elif chase ==false and status >=0:
+		frogAnimated.play("Idle")
 		velocity.x=0
-	
+	if status==-1 :
+		frogAnimated.play("Death")
+		await frogAnimated.animation_finished
+		self.queue_free()
 	move_and_slide()
 	pass
 
@@ -36,10 +42,16 @@ func _on_player_detection_body_exited(body: Node2D) -> void:
 	pass # Replace with function body.
 
 
-func _on_player_death_body_entered(body: Node2D) -> void:
-	if body.name =="Player":
+func _on_player_death_body_entered(body: Node2D) -> void:	
+	if body.name =="Player":		
 		chase=false
-		get_node("AnimatedSprite2D").play("Death")
-		await get_node("AnimatedSprite2D").animation_finished
-		self.queue_free()
+		status=-1 
+	pass # Replace with function body.
+
+
+func _on_player_collison_body_entered(body: Node2D) -> void:
+	if body.name =="Player":		
+		chase=false
+		status=-1 
+		body.health-=3
 	pass # Replace with function body.
