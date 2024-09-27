@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7586imx2vss"]
+[gd_scene load_steps=14 format=3 uid="uid://c7586imx2vss"]
 
 [ext_resource type="PackedScene" uid="uid://b618l2qsbsw5c" path="res://Players/player.tscn" id="1_1ptft"]
 [ext_resource type="Texture2D" uid="uid://dhmnqa0edd0d3" path="res://sunny-land/assets/environment/tileset.png" id="1_td32t"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bvidt2y8w6o1s" path="res://Players/frog.tscn" id="5_bgtlm"]
 [ext_resource type="PackedScene" uid="uid://dkdbn4u7686ye" path="res://Players/cherry_1.tscn" id="6_7p4rq"]
 [ext_resource type="Script" path="res://label.gd" id="6_8haan"]
+[ext_resource type="Script" path="res://timer.gd" id="8_k3q04"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kpuo4"]
 texture = ExtResource("1_td32t")
@@ -229,9 +230,6 @@ position = Vector2(893, 245)
 [node name="frog3" parent="Mobs" instance=ExtResource("5_bgtlm")]
 position = Vector2(817, 166)
 
-[node name="Cherry1" parent="Mobs" instance=ExtResource("6_7p4rq")]
-position = Vector2(268, 308)
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="hp" type="Label" parent="UI"]
@@ -255,3 +253,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "G"
 script = ExtResource("6_8haan")
+
+[node name="Collectables" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Collectables"]
+wait_time = 5.0
+autostart = true
+script = ExtResource("8_k3q04")
+
+[node name="Cherry1" parent="Collectables" instance=ExtResource("6_7p4rq")]
+position = Vector2(60, 278)
+
+[connection signal="timeout" from="Collectables/Timer" to="Collectables/Timer" method="_on_timeout"]
